@@ -1,54 +1,52 @@
-# Galaxy Task
+Galaxy Task
 
-Galaxy Task is a mobile application that gives you the opportunity to interact with your Trello account using the opensource API provided by this same site. EPITECH Strasbourg entrusted us with this project and we had 4 weeks to make it happen.
+Description :
+This project is a mobile application developed with React Native, designed to seamlessly integrate with the Trello API. It empowers users to harness the power of Trello directly from their smartphones.
 
-## Installation
 
-- First of all you need Node.JS and an Android SDK to launch this project you can download it with the Android Studio IDE and after installing it you can delete Android Studio if you want to.
-
-```bash
-  https://nodejs.org/en
-  https://developer.android.com/studio
-```
-
-- Following that, use GIT to clone this repository onto your device.
+Opening the Project with Expo
+Prerequisites
+Node.js: Ensure Node.js is installed on your system. You can download it from here.
+Expo CLI: Install Expo CLI globally by running:
 
 ```bash
-git clone -ProjectURL/SSH
+npm install -g expo-cli
+```
+Getting Started
+Clone the Repository:
+
+```bash 
+git clone [repository_url]
 ```
 
-- Finally, execute this command to install all the necessary dependencies for Node and you're good to go.
+Navigate to the Project Directory:
+
+Copy code
+```bash
+cd [project_directory]
+```
+Install Dependencies:
 
 ```bash
 npm install
 ```
 
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file
-
-`API_KEY`
-
-`API_TOKEN`
-
-`TRELLO_ID`
-
-## Deployment
-
-- This project can be deployed by running this command and scanning the QR code with Expo GO.
+Start the Expo Development Server:
 
 ```bash
-  npx expo start
+expo start
 ```
 
-- If you encounter any problems while deploying this application, try using this command instead.
+View the Application:
 
-```bash
-  npx expo start -c
-```
+After running expo start, a new window will open in your default web browser.
+View the application by scanning the QR code with the Expo Go app on your iOS or Android device.
+Alternatively, run the app on an emulator by pressing a for Android or i for iOS in the terminal where the Expo development server is running.
+Code Exploration
+Feel free to delve into the project structure and make necessary adjustments.
+Typically, the entry point of the application is App.js, where you can initiate your code exploration.
+Contributing
+Contributions are warmly welcomed! If you encounter any issues or have suggestions for enhancements, please don't hesitate to open an issue or submit a pull request.
 
-## 🔗 Contributors
-
-[![github](https://img.shields.io/badge/mey_tristan-000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/TristanMey/)
-[![github](https://img.shields.io/badge/roess_matthieu-000?style=for-the-badge&logo=github&color=grey&logoColor=white)](https://github.com/MatthieuRoess/)
-[![github](https://img.shields.io/badge/stephan_leo-000?style=for-the-badge&logo=github&color=lightgrey&logoColor=white)](https://github.com/TekilaMen)
+License
+This project is licensed under the MIT License.
