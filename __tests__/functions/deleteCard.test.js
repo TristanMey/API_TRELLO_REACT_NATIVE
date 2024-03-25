@@ -1,4 +1,4 @@
-import { deleteCard } from "../../functions";
+import { deleteCard } from "../../functions.min.js";
 import axios from "axios";
 
 jest.mock("axios");

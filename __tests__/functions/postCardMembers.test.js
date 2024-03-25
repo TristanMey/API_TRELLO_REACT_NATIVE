@@ -1,4 +1,4 @@
-import { postCardMember } from "../../functions";
+import { postCardMember } from "../../functions.min.js";
 import axios from "axios";
 
 jest.mock("axios");

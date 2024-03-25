@@ -1,4 +1,4 @@
-import { getAllTasks } from "../../functions";
+import { getAllTasks } from "../../functions.min.js";
 import axios from "axios";
 
 jest.mock("axios");

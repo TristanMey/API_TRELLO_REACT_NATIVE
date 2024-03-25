@@ -8,13 +8,13 @@ import {
   TextInput,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import tempData, { updateTodos } from "../tempData";
-import Colors from "../Colors";
+import tempData, { updateTodos } from "../tempData.min.js";
+import Colors from "../Colors.min.js";
 import {
   getIdListByName,
   postNewCard,
   getCardsFromListName,
-} from "../functions";
+} from "../functions.min.js";
 
 export default class AddListModal extends React.Component {
   backgroundColors = [
@@ -118,7 +118,6 @@ export default class AddListModal extends React.Component {
 styles = StyleSheet.create({
   container: {
     flex: 1,
-    color: Colors.white,
     backgroundColor: Colors.black,
     alignItems: "center",
     justifyContent: "center",

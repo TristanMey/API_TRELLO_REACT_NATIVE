@@ -1,4 +1,4 @@
-import { getCardMembers } from "../../functions";
+import { getCardMembers } from "../../functions.min.js";
 import axios from "axios";
 
 jest.mock("axios");

@@ -6,14 +6,13 @@ import {
   TouchableOpacity,
   FlatList,
   Modal,
-  Image,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 import TodoList from "./TodoList";
-import tempData from "../tempData";
+import tempData from "../tempData.min.js";
 import AddListModal from "./AddListModal";
-import colors from "../Colors";
+import colors from "../Colors.min.js";
 import LevitatingAstronaut from "./LevitatingAstronaut";
 import Fusee from "./Fusee";
 

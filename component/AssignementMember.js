@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import colors from "../Colors";
+import colors from "../Colors.min.js";
 import { Checkbox } from "react-native-paper";
 import {
   getAllMemberOfBoard,
   getCardMembers,
   postCardMember,
   removeMemberFromCard,
-} from "../functions/";
+} from "../functions.min.js/";
 
 const AssigneMemberToCard = ({ idBoard, idCard }) => {
   const [checked, setChecked] = React.useState(false);

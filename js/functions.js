@@ -52,11 +52,11 @@ export const postCardMember = async (id, idMember) => {
 
 // Get all lists names
 // Récupérer tous les noms des listes
-export const getAllListNames = () => {
+export const getAllListNames = (idBoard) => {
   return new Promise((resolve, reject) => {
     axios
       .get(
-        `https://api.trello.com/1/boards/${TRELLO_ID}/lists/?key=${API_KEY}&token=${API_TOKEN}`
+        `https://api.trello.com/1/boards/${idBoard}/lists?key=${API_KEY}&token=${API_TOKEN}`
       )
       .then((response) => {
         const listNames = response.data.map((list) => list.name);
@@ -393,41 +393,40 @@ export const getAllBoards = async (idOrganisation) => {
 };
 
 export const updateBoard = async (idBoard, name) => {
-  try{
-    const response = await axios.get(
-      'https://api.trello.com/1/boards/{id}?key=APIKey&token=APIToken&name=${name}'
+  try {
+    const response = await axios.put(
+      `https://api.trello.com/1/boards/${idBoard}?key=${API_KEY}&token=${API_TOKEN}&name=${name}`
     );
     return response.data;
-  } catch (error){
-    console.error("Erreur lors de l'update du board")
+  } catch (error) {
+    console.error("Erreur lors de l'update du board");
     throw error;
   }
 };
 
 export const createBoard = async (name, idOrganization) => {
-  try{
-    const response = await axios.get(
-      'https://api.trello.com/1/boards/?name={name}&key=APIKey&token=APIToken&idOrganization=${idOrganization}'
+  try {
+    const response = await axios.post(
+      `https://api.trello.com/1/boards/?name=${name}&key=${API_KEY}&token=${API_TOKEN}&idOrganization=${idOrganization}&defaultLabels=false&defaultLists=false`
     );
     return response.data;
-  } catch (error){
-    console.error("Erreur lors de la création du Board")
+  } catch (error) {
+    console.error("Erreur lors de la création du Board");
     throw error;
   }
 };
 
 export const deleteBoard = async (idBoard) => {
-  try{
-    const response = await axios.get (
-      'https://api.trello.com/1/boards/{id}?key=APIKey&token=APIToken'
+  try {
+    const response = await axios.delete(
+      `https://api.trello.com/1/boards/${idBoard}?key=${API_KEY}&token=${API_TOKEN}`
     );
     return response.data;
-  }catch (error){
-    console.error("Erreur lors du delete du Board")
+  } catch (error) {
+    console.error("Erreur lors du delete du Board");
     throw error;
   }
 };
-
 
 // Get all Organizations
 // Récupérer toutes les organisations

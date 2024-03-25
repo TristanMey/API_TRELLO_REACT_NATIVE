@@ -1,4 +1,4 @@
-import { postNewList } from "../../functions";
+import { postNewList } from "../../functions.min.js";
 import axios from "axios";
 import { TRELLO_ID } from "@env";
 

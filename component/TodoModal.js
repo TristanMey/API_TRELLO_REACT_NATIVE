@@ -17,17 +17,17 @@ import {
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import colors from "../Colors";
+import colors from "../Colors.min.js";
 import {
   updateCardState,
   getChecklistId,
   deleteTaskOfCard,
   getCardsFromListName,
   addCheckListItem,
-} from "../functions";
+} from "../functions.min.js";
 import SwipeGesture from "react-native-swipe-gestures";
 import AssignementMember from "./AssignementMember";
-import tempData, { updateTodos } from "../tempData";
+import tempData, { updateTodos } from "../tempData.min.js";
 
 export default class TodoList extends React.Component {
   state = {

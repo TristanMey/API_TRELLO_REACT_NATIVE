@@ -11,15 +11,15 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import tempData, { updateTodos } from "../tempData";
-import Colors from "../Colors";
+import tempData, { updateTodos } from "../tempData.min.js";
+import Colors from "../Colors.min.js";
 import {
   updateCardName,
   updateCardDesc,
   getCardsFromListName,
   getIdListByName,
   deleteCard,
-} from "../functions";
+} from "../functions.min.js";
 import AssigneMemberToCard from "./AssignementMember";
 export default class UpdateListModal extends React.Component {
   backgroundColors = [
@@ -150,10 +150,9 @@ export default class UpdateListModal extends React.Component {
               style={[styles.button, { backgroundColor: "red" }]}
               onPress={this.handleDelete}
             >
-              <Text style={styles.buttonText}>
-                Delete this card
-                <MaterialIcons name="delete" size={24} color={Colors.white} />
-              </Text>
+              <View style={styles.buttonText}>
+                <Text style={{ color: Colors.white }}>Delete this card</Text>
+              </View>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -207,9 +206,9 @@ styles = StyleSheet.create({
     justifyContent: "center",
   },
   buttonText: {
-    color: Colors.white,
-    fontWeight: "600",
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    borderRadius: 6,
   },
 });

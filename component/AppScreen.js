@@ -26,9 +26,8 @@ import {
   archiveList,
   getIdListByName,
   UpdateList,
-} from "../functions";
-import tempData, { updateTodos } from "../tempData";
-
+} from "../functions.min.js";
+import tempData, { updateTodos } from "../tempData.min.js";
 const backgroundImage = require("../assets/indexPhoto.png");
 const { width, height } = Dimensions.get("window");
 const title = require("../assets/indexTitle.png");
@@ -39,6 +38,7 @@ const planetImages = [
   require("../assets/indexPlanet2.png"),
   require("../assets/indexPlanet3.png"),
   require("../assets/indexPlanet4.png"),
+  require("../assets/indexPlanet5.png"),
 ];
 const gifModal = require("../assets/gifModal.gif");
 
@@ -59,13 +59,16 @@ const App = ({ route }) => {
   const [newListName, setNewListName] = useState("");
   const [updateListName, setUpdateListName] = useState("");
   const scrollPosition = useRef(new Animated.Value(0)).current;
+  const allPlanetNames = ["Create New List", ...planetNames];
   const [zoomValues, setZoomValues] = useState(
-    Array(planetNames.length).fill().map(() => new Animated.Value(1))
+    Array(allPlanetNames.length)
+      .fill()
+      .map(() => new Animated.Value(1))
   );
 
   useEffect(() => {
     if (!initialPlanetNames) {
-      getAllListNames()
+      getAllListNames(boardId)
         .then((names) => {
           setPlanetNames(names);
         })
@@ -114,6 +117,15 @@ const App = ({ route }) => {
       .catch((error) => console.error(error));
   };
 
+  useEffect(() => {
+    const allPlanetNames = ["Create New List", ...planetNames];
+    setZoomValues(
+      Array(allPlanetNames.length)
+        .fill()
+        .map(() => new Animated.Value(1))
+    );
+  }, [planetNames]);
+
   const spin = scrollPosition.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "360deg"],
@@ -135,6 +147,14 @@ const App = ({ route }) => {
   const handlePress = async (index) => {
     const adjustedIndex = index - 1;
     const listName = planetNames[adjustedIndex];
+    if (zoomValues[index]) {
+      Animated.timing(zoomValues[index], {
+        toValue: 8,
+        duration: 1000,
+        useNativeDriver: true,
+      }).start();
+    }
+
     if (!planetNames[adjustedIndex]) {
       console.error(`No data found at index ${adjustedIndex}`);
       return;
@@ -149,7 +169,6 @@ const App = ({ route }) => {
 
     getCardsFromListName(listName, idOrganization)
       .then((cards) => {
-        console.log("listName", listName);
         // Update the todos in tempData with the real card IDs and names
         updateTodos(index, cards);
         // Check if tempData[index] is defined
@@ -203,8 +222,16 @@ const App = ({ route }) => {
                                 // Refresh the list of planet names
                                 getAllListNames(boardId)
                                   .then((names) => {
+                                    const allNames = [
+                                      "Create New List",
+                                      ...names,
+                                    ];
                                     setPlanetNames(names);
-                                    setZoomValues(Array(names.length).fill().map(() => new Animated.Value(1)));
+                                    setZoomValues(
+                                      Array(allNames.length)
+                                        .fill()
+                                        .map(() => new Animated.Value(1))
+                                    );
                                   })
                                   .catch((error) => console.error(error));
                               })
@@ -266,12 +293,10 @@ const App = ({ route }) => {
                     postNewList(boardId, newListName)
                       .then(() => {
                         setModalVisible(!modalVisible);
+                        setNewListName("");
                         getAllListNames(boardId)
                           .then((names) => {
-                            setPlanetNames((prevNames) => {
-                              setZoomValues(Array(names.length).fill().map(() => new Animated.Value(1)));
-                              return names;
-                            });
+                            setPlanetNames(names);
                           })
                           .catch((error) => console.error(error));
                       })
@@ -330,11 +355,11 @@ const App = ({ route }) => {
                       UpdateList(selectedListId, updateListName)
                         .then(() => {
                           setUpdateModalVisible(!UpdateModalVisible);
+                          setUpdateListName("");
                           // Refresh the list of planet names
                           getAllListNames(boardId)
                             .then((names) => {
                               setPlanetNames(names);
-                              setZoomValues(Array(names.length).fill().map(() => new Animated.Value(1)));
                             })
                             .catch((error) => console.error(error));
                         })
@@ -382,62 +407,74 @@ const App = ({ route }) => {
               );
             }}
           >
-            {planetNames.map((planetName, index) => {
-                const imageIndex = index === 0 ? 0 : ((index % (planetImages.length - 2)) + 1);
-                const planetImage = planetImages[imageIndex];
-                return ( 
-                  <View key={index} style={styles.page}>
-                    <TouchableOpacity
-                      onPress={
-                        index === 0
-                          ? handleNewListPress
-                          : () => handlePress(index)
-                      }
-                      onLongPress={() => handleLongPress(index)}
-                    >
-                      <Animated.Image
-                        source={planetImage}
-                        style={[
-                          styles.planet,
-                          {
-                            transform: [
-                              { rotate: spin },
-                              { scale: zoomValues[index] },
-                            ],
-                          },
-                        ]}
-                        resizeMode="contain"
-                      />
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Text style={styles.planetName}>
-                          {index === 0
-                            ? "Create New List"
-                            : planetNames[index - 1]}
-                        </Text>
-                        {index !== 0 && (
-                          <TouchableOpacity
-                            onPress={() => handleUpdateListPress(index)}
-                          >
-                            <MaterialCommunityIcons
-                              name="pencil-box-outline"
-                              size={30}
-                              color={colors.white}
-                              style={{ marginLeft: 5 }}
-                            />
-                          </TouchableOpacity>
-                        )}
-                      </View>
+            {allPlanetNames.map((planetName, index) => {
+              const imageIndex =
+                index === 0 ? 0 : (index % (planetImages.length - 2)) + 1;
+              const planetImage = planetImages[imageIndex];
 
-                    </TouchableOpacity>
-                  </View>
-                ) // Fermez la parenthèse ici
-              })}
+              //Allows to hide the names of the list when zooming.
+              const opacity = zoomValues[index]
+                ? zoomValues[index].interpolate({
+                    inputRange: [1, 5],
+                    outputRange: [1, 0],
+                  })
+                : 1;
+
+              return (
+                <View key={index} style={styles.page}>
+                  <TouchableOpacity
+                    onPress={
+                      index === 0
+                        ? handleNewListPress
+                        : () => handlePress(index)
+                    }
+                    onLongPress={() => handleLongPress(index)}
+                  >
+                    <Animated.Image
+                      source={planetImage}
+                      style={[
+                        styles.planet,
+                        {
+                          transform: [
+                            { rotate: spin },
+                            {
+                              scale: zoomValues[index] ? zoomValues[index] : 1,
+                            },
+                          ],
+                        },
+                      ]}
+                      resizeMode="contain"
+                    />
+                    <Animated.View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        opacity: opacity,
+                      }}
+                    >
+                      <Text style={styles.planetName}>
+                        {index === 0
+                          ? "Create New List"
+                          : planetNames[index - 1]}
+                      </Text>
+                      {index !== 0 && (
+                        <TouchableOpacity
+                          onPress={() => handleUpdateListPress(index)}
+                        >
+                          <MaterialCommunityIcons
+                            name="pencil-box-outline"
+                            size={30}
+                            color={colors.white}
+                            style={{ marginLeft: 5 }}
+                          />
+                        </TouchableOpacity>
+                      )}
+                    </Animated.View>
+                  </TouchableOpacity>
+                </View>
+              );
+            })}
           </ViewPager>
         </ImageBackground>
       </View>

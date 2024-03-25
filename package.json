@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",
-    "@react-native-community/checkbox": "^0.5.17",
     "@lowkey/react-native-gif": "^3.1.0",
     "@react-native-async-storage/async-storage": "^1.22.3",
+    "@react-native-community/checkbox": "^0.5.17",
     "@react-native-community/viewpager": "^5.0.11",
     "@react-native-picker/picker": "^2.6.1",
     "@react-navigation/native": "^6.1.12",

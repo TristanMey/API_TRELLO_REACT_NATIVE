@@ -1,6 +1,6 @@
 // postNewCard.test.js
 
-import { postNewCard } from "../../functions"; // Adjust the path accordingly
+import { postNewCard } from "../../functions.min.js"; // Adjust the path accordingly
 import axios from "axios";
 
 jest.mock("axios"); // Mock axios for testing

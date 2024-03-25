@@ -1,6 +1,6 @@
 // updateCardName.test.js
 
-import { updateCardName } from "../../functions"; // Adjust the path accordingly
+import { updateCardName } from "../../functions.min.js"; // Adjust the path accordingly
 import { API_KEY, API_TOKEN } from "@env";
 import axios from "axios";
 
